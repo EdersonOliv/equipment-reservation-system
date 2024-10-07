@@ -10,10 +10,10 @@ export default class User extends BaseModel {
   public name: string
 
   @column()
-  public email: string
+  public cpf: string
 
   @column()
-  public cpf: string
+  public email: string
 
   @column({ serializeAs: null })
   public password: string
