@@ -8,17 +8,17 @@ export default class EquipmentsController {
   }
 
   public async store({ request }: HttpContextContract) {
-    const { name, category, quantity, availability } = request.only([
+    const { name, category, quantity, quant_available } = request.only([
       'name',
       'category',
       'quantity',
-      'availability',
+      'quant_available',
     ])
     const equipment = await Equipment.create({
       name,
       category,
       quantity,
-      availability,
+      quant_available,
     })
     return equipment
   }
@@ -34,14 +34,14 @@ export default class EquipmentsController {
 
   public async update({ request, response, params }: HttpContextContract) {
     try {
-      const { name, category, quantity, availability } = request.only([
+      const { name, category, quantity, quant_available } = request.only([
         'name',
         'category',
         'quantity',
-        'availability',
+        'quant_available',
       ])
       const equipment = await Equipment.findByOrFail('id', params.id)
-      equipment.merge({ name, category, quantity, availability })
+      equipment.merge({ name, category, quantity, quant_available })
       await equipment.save()
       return equipment
     } catch (error) {

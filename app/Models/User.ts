@@ -25,6 +25,9 @@ export default class User extends BaseModel {
   @hasMany(() => Reserve)
   public reserves: HasMany<typeof Reserve>
 
+  @column()
+  public token: string | null
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

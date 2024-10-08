@@ -16,7 +16,7 @@ export default class Equipment extends BaseModel {
   public quantity: number
 
   @column()
-  public availability: boolean
+  public quant_available: number
 
   @hasMany(() => Reserve)
   public reserved: HasMany<typeof Reserve>
