@@ -1,7 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
-import Equipment from './Equipment'
-import User from './User'
+import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Reserve extends BaseModel {
   @column({ isPrimary: true })
@@ -14,13 +12,10 @@ export default class Reserve extends BaseModel {
   public date_reserved: DateTime
 
   @column()
-  public date_returned: DateTime
+  public equipmentId: number
 
-  @hasMany(() => Equipment)
-  public equipment: HasMany<typeof Equipment>
-
-  @hasMany(() => User)
-  public user: HasMany<typeof User>
+  @column()
+  public userId: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

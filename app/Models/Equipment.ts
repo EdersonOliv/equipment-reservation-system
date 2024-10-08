@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import Reserve from './Reserve'
 
 export default class Equipment extends BaseModel {
   @column({ isPrimary: true })
@@ -16,6 +17,9 @@ export default class Equipment extends BaseModel {
 
   @column()
   public availability: boolean
+
+  @hasMany(() => Reserve)
+  public reserved: HasMany<typeof Reserve>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

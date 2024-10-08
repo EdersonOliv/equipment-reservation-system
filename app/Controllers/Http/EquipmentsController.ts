@@ -3,8 +3,8 @@ import Equipment from '../../Models/Equipment'
 
 export default class EquipmentsController {
   public async index() {
-    const equipments = await Equipment.query()
-    return equipments
+    const equipment = await Equipment.query()
+    return equipment
   }
 
   public async store({ request }: HttpContextContract) {

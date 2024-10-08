@@ -11,7 +11,6 @@ export default class extends BaseSchema {
       table.timestamp('date_returned')
       table
         .bigInteger('user_id')
-        .notNullable()
         .unsigned()
         .references('id')
         .inTable('users')
@@ -19,7 +18,6 @@ export default class extends BaseSchema {
         .onDelete('SET NULL')
       table
         .bigInteger('equipment_id')
-        .notNullable()
         .unsigned()
         .references('id')
         .inTable('equipment')
