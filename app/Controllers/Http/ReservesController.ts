@@ -3,26 +3,35 @@ import Reserve from '../../Models/Reserve'
 import Equipment from 'App/Models/Equipment'
 
 export default class ReservesController {
-  public async index({ auth }: HttpContextContract) {
+  public async index({ response, auth }: HttpContextContract) {
+    try {
       const user = await auth.authenticate()
       const reserves = await Reserve.query().where('user_id', user.id)
-      return reserves
+      return response.status(200).json(reserves)
+    } catch (error) {
+      console.error(error)
+      return response.status(500).json({ error: 'Reserve not found' })
+    }
   }
 
-  public async store({ request, auth }: HttpContextContract) {
+  public async store({ request, response, auth }: HttpContextContract) {
+  try {
     const user = await auth.authenticate()
     const user_id = user.$getAttribute('id')
     const { equipment_id } = request.only(['equipment_id'])
-    const equipment = await Equipment.query().where('equipment_id', 'id')
-    console.log(equipment)
-    const reserve = await user.related('reserves').create(equipment_id, user_id)
-    return reserve
+    const reserve = await user.related('reserves').create(user_id, equipment_id)
+    await reserve.load(() => Equipment)
+    return response.status(201).json(reserve)
+  } catch (error) {
+    console.error(error)
+    return response.status(500).json({ error: 'Reserve not found' })
+  }
   }
 
   public async show({ response, params }: HttpContextContract) {
     try {
       const reserve = await Reserve.findByOrFail('id', params.id)
-      await reserve.load('equipment')
+      await reserve.load(() => Equipment)
       return response.status(200).json(reserve)
     } catch (error) {
       console.error(error)
@@ -32,9 +41,9 @@ export default class ReservesController {
 
   public async update({ request, response, params }: HttpContextContract) {
     try {
-      const { date_reserved } = request.only(['date_reserved'])
+      const { status } = request.only(['status'])
       const reserve = await Reserve.findByOrFail('id', params.id)
-      reserve.merge({ date_reserved })
+      reserve.merge({ status })
       await reserve.save()
       return response.status(200).json(reserve)
     } catch (error) {

@@ -11,11 +11,14 @@ export default class Reserve extends BaseModel {
   @column.dateTime({ autoCreate: true })
   public date_reserved: DateTime
 
-  @column()
-  public equipmentId: number
+  @column.dateTime({ autoUpdate: true })
+  public date_returned: DateTime
 
   @column()
   public userId: number
+
+  @column()
+  public equipmentId: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
