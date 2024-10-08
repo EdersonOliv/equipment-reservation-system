@@ -16,12 +16,15 @@ export default class extends BaseSchema {
         .references('id')
         .inTable('users')
         .onUpdate('CASCADE')
+        .onDelete('SET NULL')
       table
         .bigInteger('equipment_id')
         .notNullable()
         .unsigned()
         .references('id')
-        .inTable('equipments')
+        .inTable('equipment')
+        .onUpdate('CASCADE')
+        .onDelete('SET NULL')
 
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })

@@ -1,5 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Equipment from 'app/Models/Equipment'
+import Equipment from '../../Models/Equipment'
 
 export default class EquipmentsController {
   public async index() {

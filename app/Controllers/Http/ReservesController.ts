@@ -1,5 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Reserve from 'app/Models/Reserve'
+import Reserve from '../../Models/Reserve'
 
 export default class ReservesController {
   public async index({ response }: HttpContextContract) {
