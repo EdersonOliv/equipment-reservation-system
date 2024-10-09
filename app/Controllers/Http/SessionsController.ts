@@ -15,9 +15,4 @@ export default class SessionController {
     await auth.logout()
     return response.status(203)
   }
-
-  public async logout({ response, auth }: HttpContextContract) {
-    await auth.use('api').logout()
-    return response.ok({ message: 'Logged out successfully' })
-  }
 }
